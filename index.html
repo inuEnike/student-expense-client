@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Tracker</title>
+  <link href="./dist/styles/output.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/14bfa6f5f3.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <style>
+    /* Custom scrollbar styles for transaction history table */
+    .transaction-history-scrollbar::-webkit-scrollbar {
+      width: 8px;
+      /* Width of vertical scrollbar */
+      height: 8px;
+      /* Height of horizontal scrollbar */
+    }
+
+    .transaction-history-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #888;
+      /* Color of the scroll thumb */
+      border-radius: 4px;
+      /* Rounded corners for the thumb */
+    }
+
+    .transaction-history-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+      /* Color of the thumb on hover */
+    }
+
+    .transaction-history-scrollbar::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+      /* Color of the track */
+      border-radius: 4px;
+      /* Rounded corners for the track */
+    }
+
+    /* For Firefox */
+    .transaction-history-scrollbar {
+      scrollbar-width: thin;
+      /* Thin scroll bars */
+      scrollbar-color: #888 #f1f1f1;
+      /* Thumb color and track color */
+    }
+
+    /* Additional styles */
+    body {
+      padding-bottom: 60px;
+      /* Height of the footer */
+    }
+  </style>
+</head>
+
+<body class="relative">
+  <div class="px-3 pb-16">
+    <div class="">
+      <!-- Header with Logo and Icons -->
+      <div class="rounded-b-md flex py-5 justify-between px-2 items-center">
+        <div class="logo flex items-center">
+          <img class="mx-auto h-10 w-auto pr-2" src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=600"
+            alt="Your Company">
+
+          <h2 class="text-xl font-bold text-green-800">Finance Tracker</h2>
+        </div>
+        <div class="flex">
+          <i class="fa-regular fa-user pr-3"></i>
+          <i class="fa-regular fa-bell"></i>
+        </div>
+      </div>
+
+      <!-- Balance Section -->
+      <div class="bg-green-400 text-[#ebe6e6] px-5 mt-3 py-5 rounded-md">
+        <div class="flex justify-between">
+          <div class="flex items-center">
+            <p class="text-sm pr-2">Available Balance</p>
+            <div class="">
+              <i class="fa-regular fa-eye pr-3 text-sm hidden icon" id="toggleBalance"></i>
+              <!-- <i class="fa-regular fa-eye-slash pr-3 text-sm" id="toggleBalance"></i> -->
+            </div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="flex items-center">
+              <p class="text-sm matNo">hjjjjj</p>
+            <i class="fa-regular fa-copy pl-3 text-sm copy"></i>
+          </div>
+          <!-- <span class="text-sm">copied!</span> -->
+          </div>
+        </div>
+        <div class="flex items-center show">
+          <h3 class="font-bold text-xl py-2 balance "> </h3>
+          <h3 class="font-bold text-xl py-2 pl-2"> C </h3>
+        </div>
+        <h3 class="font-bold text-xl py-2 hide hidden">**** C</h3>
+      </div>
+    </div>
+
+    <!-- Navigation for different pages -->
+    <div class="py-5">
+      <h2 class="text-xl font-bold text-green-400">Manage Transactions</h2>
+      <ul class="flex items-center justify-around my-5">
+        <li class="text-center w-[20%]">
+          <a href="/transaction-history.html" class="flex flex-col text-gray-800">
+            <i class="fa-solid fa-history text-green-700 py-5"></i>
+            <p class="text-sm text-green-950">Transaction History</p>
+          </a>
+        </li>
+        <li class="text-center w-[20%]">
+          <a href="/send-coin.html" class="flex items-center flex-col text-gray-800">
+            <i class="fa-solid fa-paper-plane text-green-700 py-5"></i>
+            <p class="text-sm text-green-950">Send Coin</p>
+          </a>
+        </li>
+        <li class="text-center w-[20%]">
+          <a href="/buy-coin.html" class="flex items-center flex-col text-gray-800">
+            <i class="fa-solid fa-dollar-sign text-green-700 py-5"></i>
+            <p class="text-sm text-green-950">Buy Coin</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Transaction History -->
+    <div class="">
+      <div class="flex flex-col overflow-x-auto my-5 transaction-history-scrollbar">
+        <div class="sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-start text-sm font-light text-surface dark:text-white">
+                <thead class="border-b border-neutral-200 font-medium dark:border-white/10 text-center">
+                  <tr>
+                    <th scope="col" class="px-6 py-4">#</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Heading</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-neutral-200 dark:border-white/10 text-center">
+                    <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                  </tr>
+                  <tr class="border-b border-neutral-200 dark:border-white/10 text-center">
+                    <td class="whitespace-nowrap px-6 py-4 font-medium">2</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                  </tr>
+                  <tr class="border-b text-center">
+                    <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-4 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
+    <a href="/" class="flex items-center flex-col text-green-700">
+      <i class="fa-solid fa-house text-lg"></i>
+      <span class="ml-1 text-sm">Home</span>
+    </a>
+    <a href="/search.html" class="flex items-center flex-col text-green-700">
+      <i class="fa-solid fa-search text-lg"></i>
+      <span class="ml-1 text-sm">Search</span>
+    </a>
+    <a href="/settings.html" class="flex items-center flex-col text-green-700">
+      <i class="fa-solid fa-gear text-lg"></i>
+      <span class="ml-1 text-sm">Settings</span>
+    </a>
+    <a href="/help.html" class="flex items-center flex-col text-green-700">
+      <i class="fa-solid fa-question-circle text-lg"></i>
+      <span class="ml-1 text-sm">Help</span>
+    </a>
+  </div>
+
+
+
+  <!-- JavaScript for toggling balance visibility -->
+  <script src="./src/js/main.js"></script>
+
+  <script>
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const showBalance = document.querySelector('.show');
+      const hideBalance = document.querySelector('.hide');
+      const toggleButton = document.getElementById('toggleBalance');
+      const icon = document.querySelector(".icon")
+
+      // Function to toggle balance visibility
+      toggleButton.addEventListener('click', () => {
+        if (!showBalance.classList.contains('hidden')) {
+          showBalance.classList.add('hidden');
+          hideBalance.classList.remove('hidden');
+          icon.classList.remove("fa-eye")
+          icon.classList.add("fa-eye-slash")
+        } else {
+          showBalance.classList.remove('hidden');
+          hideBalance.classList.add('hidden');
+          icon.classList.add("fa-eye")
+          icon.classList.remove("fa-eye-slash")
+        }
+      });
+
+
+      const fetchLoggedInUser = async () => {
+        let token = localStorage.getItem("auth")
+        let response = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/auth/get-user", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+
+        const getUserBalance = document.querySelector(".balance")
+        const userBalance = getUserBalance.innerHTML = response?.data?.coin
+        const getUserMatNo = document.querySelector(".matNo")
+        const userMatNo = getUserMatNo.innerHTML = response?.data?.matno
+
+        const copyToClipBoard = async () => {
+          try {
+            await navigator.clipboard.writeText(userMatNo)
+            alert("Text has been copied to clip board")
+          } catch (error) {
+            console.error(error, "Failed to copy to clip board")
+          }
+        }
+        const copy = document.querySelector(".copy").addEventListener("click", copyToClipBoard)
+
+      }
+
+      fetchLoggedInUser()
+    });
+
+
+  </script>
+</body>
+
+</html>
