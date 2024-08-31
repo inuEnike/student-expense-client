@@ -71,20 +71,59 @@
         </div>
 
         <div class="hello">
-            <h2 class="text-xl text-[#3c4ee0] font-semibold">Buy Coin</h2>
+            <h2 class="text-xl text-[#3c4ee0] font-semibold">Send Coin</h2>
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form class="space-y-6 form" method="post">
 
                     <div>
                         <div class="flex items-center justify-between">
-                            <label for="password"
-                                class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
+                            <label for="amount" class="block text-sm font-medium leading-6 text-gray-900">Amount</label>
                             <div class="text-sm">
                             </div>
                         </div>
+
                         <div class="mt-2">
                             <input id="amount" name="amount" type="number" required
                                 class="amount block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <label for="amount"
+                                class="block text-sm font-medium leading-6 text-gray-900">Recipient</label>
+                            <div class="text-sm">
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <input id="amount" name="amount" type="number" required
+                                class="amount block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <label for="amount" class="block text-sm font-medium leading-6 text-gray-900">From</label>
+                            <div class="text-sm">
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <input id="amount" name="amount" type="number" required
+                                class="amount block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <label for="amount"
+                                class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                            <div class="text-sm">
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <textarea name="amount" rows="5" id=""
+                                class="amount block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"></textarea>
                         </div>
                     </div>
 
@@ -103,22 +142,22 @@
     <!-- Bottom Bar -->
     <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-4 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
         <a href="/" class="flex items-center flex-col ">
-          <i class="fa-solid fa-house text-lg text-blue-400"></i>
-          <span class="ml-1 text-sm">Home</span>
+            <i class="fa-solid fa-house text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm">Home</span>
         </a>
         <a href="/search.html" class="flex items-center flex-col ">
-          <i class="fa-solid fa-search text-lg text-blue-400"></i>
-          <span class="ml-1 text-sm">Search</span>
+            <i class="fa-solid fa-search text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm">Search</span>
         </a>
         <a href="/settings.html" class="flex items-center flex-col ">
-          <i class="fa-solid fa-gear text-lg text-blue-400"></i>
-          <span class="ml-1 text-sm">Settings</span>
+            <i class="fa-solid fa-gear text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm">Settings</span>
         </a>
         <a href="/help.html" class="flex items-center flex-col ">
-          <i class="fa-solid fa-question-circle text-lg text-blue-400"></i>
-          <span class="ml-1 text-sm !text-green-600">Help</span>
+            <i class="fa-solid fa-question-circle text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm !text-green-600">Help</span>
         </a>
-      </div>
+    </div>
 
 
 
@@ -128,24 +167,24 @@
         document.addEventListener("DOMContentLoaded", () => {
             const handleSubmit = async (e) => {
                 e.preventDefault();
-    
+
                 const btn = document.querySelector(".btn");
                 const errorElement = document.querySelector(".error");
-    
+
                 // Start loading state
                 btn.innerHTML = "Loading...";
-    
+
                 // Get input values
                 const amountInput = document.querySelector(".amount");
                 const amount = parseFloat(amountInput.value); // Convert to number
                 let token = localStorage.getItem("auth");
-    
+
                 if (isNaN(amount) || amount <= 0) { // Ensure amount is a positive number
                     alert("Please enter a valid amount");
                     btn.innerHTML = "Buy";
                     return;
                 }
-    
+
                 try {
                     // Fetch user data
                     const getUser = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/auth/get-user", {
@@ -153,7 +192,7 @@
                             Authorization: `Bearer ${token}`
                         }
                     });
-    
+
                     // Send the request to buy coin
                     const response = await axios.post('https://student-expense-tracker-lewk.onrender.com/api/v1/coin/buy-coin', {
                         amount, // Send as number
@@ -163,9 +202,9 @@
                             Authorization: `Bearer ${token}`
                         }
                     });
-    
+
                     console.log(response);
-    
+
                     // Handle successful response
                     if (response.status === 201) {
                         const paystack = response.data?.response.data.authorization_url
@@ -188,12 +227,12 @@
                     btn.innerHTML = "Buy";
                 }
             };
-    
+
             const form = document.querySelector('.form');
             form.addEventListener("submit", handleSubmit);
         });
     </script>
-    
+
 </body>
 
 </html>
