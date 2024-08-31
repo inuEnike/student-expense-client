@@ -75,14 +75,14 @@
         <div class="flex justify-between items-center">
           <div class="flex items-center">
             <p class="text-sm pr-2">Available Balance</p>
-              <i class="fa-regular fa-eye pr-3 text-sm hidden icon" id="toggleBalance"></i>
+            <i class="fa-regular fa-eye pr-3 text-sm hidden icon" id="toggleBalance"></i>
           </div>
           <div class="flex flex-col items-center">
             <div class="flex items-center">
               <p class="text-xs matNo">hjjjjj</p>
-            <i class="fa-regular fa-copy pl-3 text-sm copy"></i>
-          </div>
-          <!-- <span class="text-sm">copied!</span> -->
+              <i class="fa-regular fa-copy pl-3 text-sm copy"></i>
+            </div>
+            <!-- <span class="text-sm">copied!</span> -->
           </div>
         </div>
         <div class="flex items-center show">
@@ -129,50 +129,15 @@
                 <thead class="border-b border-neutral-200 font-medium text-center">
                   <tr>
                     <th scope="col" class="px-6 py-4">#</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
-                    <th scope="col" class="px-6 py-4">Heading</th>
+                    <th scope="col" class="px-6 py-4">Transaction status</th>
+                    <th scope="col" class="px-6 py-4">Amount</th>
+                    <th scope="col" class="px-6 py-4">Recipient</th>
+                    <th scope="col" class="px-6 py-4">Date</th>
+
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="border-b border-neutral-200 text-center">
-                    <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                  </tr>
-                  <tr class="border-b border-neutral-200 text-center">
-                    <td class="whitespace-nowrap px-6 py-4 font-medium">2</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                  </tr>
-                  <tr class="border-b text-center">
-                    <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                  </tr>
+
                 </tbody>
               </table>
             </div>
@@ -210,7 +175,7 @@
   <script>
 
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       const showBalance = document.querySelector('.show');
       const hideBalance = document.querySelector('.hide');
       const toggleButton = document.getElementById('toggleBalance');
@@ -230,10 +195,11 @@
           icon.classList.remove("fa-eye-slash")
         }
       });
+      let token = localStorage.getItem("auth")
+
 
 
       const fetchLoggedInUser = async () => {
-        let token = localStorage.getItem("auth")
         let response = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/auth/get-user", {
           headers: {
             Authorization: `Bearer ${token}`
@@ -256,7 +222,30 @@
         const copy = document.querySelector(".copy").addEventListener("click", copyToClipBoard)
 
       }
+      const getUserTransactions = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/transaction/recent-transactions", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(getUserTransactions);
 
+      // Process and display transactions
+      const transactions = getUserTransactions.data.data;
+      const tbody = document.querySelector("table tbody");
+
+      transactions.map((transaction, index) => {
+        const row = document.createElement("tr");
+        row.classList.add("border-b", "border-neutral-200", "text-center");
+
+        row.innerHTML = `
+                        <td class="whitespace-nowrap px-6 py-4 font-medium">${index + 1}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${transaction.type || '-'}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${transaction.amount || '-'}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${transaction.to || '-'}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${new Date(transaction.createdAt).toLocaleString() || '-'}</td>
+                    `;
+        tbody.appendChild(row);
+      });
       fetchLoggedInUser()
     });
 
