@@ -82,10 +82,9 @@
                                     <thead class="border-b border-neutral-200 font-medium text-center">
                                         <tr>
                                             <th scope="col" class="px-6 py-4">#</th>
-                                            <th scope="col" class="px-6 py-4">From</th>
-                                            <th scope="col" class="px-6 py-4">To</th>
+                                            <th scope="col" class="px-6 py-4">Transaction status</th>
                                             <th scope="col" class="px-6 py-4">Amount</th>
-                                            <th scope="col" class="px-6 py-4">Description</th>
+                                            <th scope="col" class="px-6 py-4">Recipient</th>
                                             <th scope="col" class="px-6 py-4">Date</th>
                                         </tr>
                                     </thead>
@@ -144,6 +143,8 @@
 
                 // Process and display transactions
                 const transactions = getUserTransactions.data.data;
+                console.log(transactions);
+                
                 const tbody = document.querySelector("table tbody");
 
                 transactions.map((transaction, index) => {
@@ -152,10 +153,9 @@
 
                     row.innerHTML = `
                         <td class="whitespace-nowrap px-6 py-4 font-medium">${index + 1}</td>
-                        <td class="whitespace-nowrap px-6 py-4">${transaction.from || '-'}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${transaction.type || '-'}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${transaction.amount || '-'} coin</td>
                         <td class="whitespace-nowrap px-6 py-4">${transaction.to || '-'}</td>
-                        <td class="whitespace-nowrap px-6 py-4">${transaction.amount || '-'}</td>
-                        <td class="whitespace-nowrap px-6 py-4">${transaction.description || '-'}</td>
                         <td class="whitespace-nowrap px-6 py-4">${new Date(transaction.createdAt).toLocaleString() || '-'}</td>
                     `;
                     tbody.appendChild(row);
