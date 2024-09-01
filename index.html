@@ -207,6 +207,8 @@
           }
         })
 
+        console.log(response.data)
+
         const getUserBalance = document.querySelector(".balance")
         const userBalance = getUserBalance.innerHTML = response?.data?.coin
         const getUserMatNo = document.querySelector(".matNo")
@@ -242,8 +244,8 @@
                         <td class="whitespace-nowrap px-6 py-4 font-medium">${index + 1}</td>
                         <td class="whitespace-nowrap px-6 py-4">${transaction.type || '-'}</td>
                         <td class="whitespace-nowrap px-6 py-4">${transaction.amount || '-'} coin</td>
-                        <td class="whitespace-nowrap px-6 py-4">${transaction.to || '-'}</td>
-                        <td class="whitespace-nowrap px-6 py-4">${transaction.from || '-'}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${transaction.to?.matno || '-'}</td>
+                        <td class="whitespace-nowrap px-6 py-4">${transaction?.from?.firstname || '-'}</td>
                         <td class="whitespace-nowrap px-6 py-4">${new Date(transaction.createdAt).toLocaleString() || '-'}</td>
                     `;
         tbody.appendChild(row);
