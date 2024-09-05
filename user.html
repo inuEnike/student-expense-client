@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Tracker</title>
+    <link href="./dist/styles/output.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/14bfa6f5f3.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        /* Custom scrollbar styles for transaction history table */
+        .transaction-history-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            /* Width of vertical scrollbar */
+            height: 8px;
+            /* Height of horizontal scrollbar */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #888;
+            /* Color of the scroll thumb */
+            border-radius: 4px;
+            /* Rounded corners for the thumb */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+            /* Color of the thumb on hover */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            /* Color of the track */
+            border-radius: 4px;
+            /* Rounded corners for the track */
+        }
+
+        /* For Firefox */
+        .transaction-history-scrollbar {
+            scrollbar-width: thin;
+            /* Thin scroll bars */
+            scrollbar-color: #888 #f1f1f1;
+            /* Thumb color and track color */
+        }
+
+        /* Additional styles */
+        body {
+            padding-bottom: 60px;
+            /* Height of the footer */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="flex justify-center items-center my-10 h-full">
+        <div class=" flex flex-col h-[50vh] justify-center items-center">
+            <div class="userIcon my-3">
+                <!-- Placeholder image with user initials -->
+                <img src="https://ui-avatars.com/api/?name=John+Doe&size=128" alt="User Icon"
+                    class="w-32 h-32 rounded-full border-2 border-gray-300 shadow-md" />
+            </div>
+            <div class="text-center">
+                <p class="email my-5 text-lg font-semibold">
+                    Email: <span class="getEmail">example@email.com</span>
+                </p>
+                <p class="fullName my-5 text-lg font-semibold">
+                    Full Name: <span class="getfullName font-light">John Doe</span>
+                </p>
+                <p class="matno my-5 text-lg font-semibold">
+                    Matriculation Number: <span class="getmatno font-light">ESH223344556677</span>
+                </p>
+                <p class="coin my-5 text-lg font-semibold">
+                    Available Coin Balance: <span class="getcoin font-light">ESH223344556677</span>
+                </p>
+                <p class="dateJoined my-5 text-lg font-semibold">
+                    Date Joined: <span class="getdateJoined font-light">ESH223344556677</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-4 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
+        <a href="/" class="flex items-center flex-col ">
+            <i class="fa-solid fa-house text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm">Home</span>
+        </a>
+        <a href="/search.html" class="flex items-center flex-col ">
+            <i class="fa-solid fa-search text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm">Search</span>
+        </a>
+        <a href="/settings.html" class="flex items-center flex-col ">
+            <i class="fa-solid fa-gear text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm">Settings</span>
+        </a>
+        <a href="/help.html" class="flex items-center flex-col ">
+            <i class="fa-solid fa-question-circle text-lg text-blue-400"></i>
+            <span class="ml-1 text-sm !text-green-600">Help</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            let token = localStorage.getItem("auth")
+            const fetchLoggedInUser = async () => {
+                let response = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/auth/get-user", {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+
+                const getEmail = document.querySelector('.getEmail').innerHTML = response.data.email
+                const getfullName = document.querySelector('.getfullName').innerHTML = `${response.data.surname} ${response.data.firstname} ${response.data.lastname}`
+                const getmatno = document.querySelector('.getmatno').innerHTML = response.data.matno
+                const getcoin = document.querySelector('.getcoin').innerHTML = response.data.coin
+                const getdateJoined = document.querySelector('.getdateJoined').innerHTML = new Date(response.data.createdAt).toLocaleDateString()
+
+                // Dynamically update the placeholder image
+                const userIcon = document.querySelector('.userIcon img');
+                userIcon.src = `https://ui-avatars.com/api/?name=${response.data.surname}+${response.data.firstname}&size=128`;
+            }
+            fetchLoggedInUser()
+        })
+    </script>
+</body>
+
+</html>
