@@ -25,6 +25,8 @@ const logout = () => {
     let removeToken;
     removeToken = token
     window.location.href = "/login.html";
+  }else{
+    return null
   }
 
   return removeToken

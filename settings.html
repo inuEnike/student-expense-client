@@ -88,10 +88,12 @@
                         Send Coin
                     </li>
                 </a>
-                <li class="py-5 font-semibold">
-                    <i class="fa-solid fa-dollar-sign text-[#3c4ee0] py-5 mr-3 text-lg"></i>
-                    Buy Coin
-                </li>
+                <a href="/buy-coin.html">
+                    <li class="py-5 font-semibold">
+                        <i class="fa-solid fa-dollar-sign text-[#3c4ee0] py-5 mr-3 text-lg"></i>
+                        Buy Coin
+                    </li>
+                </a>
                 <a href="/logComplaint.html">
                     <li class="py-5 font-semibold">
                         <i class="fa-solid fa-exclamation-circle text-[#3c4ee0] py-5 mr-3 text-lg"></i>
@@ -138,73 +140,7 @@
     <!-- JavaScript for toggling balance visibility -->
     <script src="./src/js/main.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const handleSubmit = async (e) => {
-                e.preventDefault();
-
-                const btn = document.querySelector(".btn");
-                const errorElement = document.querySelector(".error");
-
-                // Start loading state
-                btn.innerHTML = "Loading...";
-
-                // Get input values
-                const amountInput = document.querySelector(".amount");
-                const amount = parseFloat(amountInput.value); // Convert to number
-                let token = localStorage.getItem("auth");
-
-                if (isNaN(amount) || amount <= 0) { // Ensure amount is a positive number
-                    alert("Please enter a valid amount");
-                    btn.innerHTML = "Buy";
-                    return;
-                }
-
-                try {
-                    // Fetch user data
-                    const getUser = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/auth/get-user", {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
-
-                    // Send the request to buy coin
-                    const response = await axios.post('https://student-expense-tracker-lewk.onrender.com/api/v1/coin/buy-coin', {
-                        amount, // Send as number
-                        userId: getUser.data._id,
-                    }, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
-
-                    console.log(response);
-
-                    // Handle successful response
-                    if (response.status === 201) {
-                        const paystack = response.data?.response.data.authorization_url
-                        window.location.href = paystack; // Redirect after successful transaction
-                    } else {
-                        // Show error message from server
-                        errorElement.innerHTML = response?.data?.errormessage || "Transaction failed";
-                        setTimeout(() => {
-                            errorElement.innerHTML = ""; // Clear error message after 7 seconds
-                        }, 7000);
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    errorElement.innerHTML = error.response?.data?.errMessage || "An error occurred";
-                    setTimeout(() => {
-                        errorElement.innerHTML = ""; // Clear error message after 7 seconds
-                    }, 7000);
-                } finally {
-                    // Reset loading state
-                    btn.innerHTML = "Buy";
-                }
-            };
-
-            const form = document.querySelector('.form');
-            form.addEventListener("submit", handleSubmit);
-        });
+      
     </script>
 
 </body>
