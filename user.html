@@ -53,52 +53,50 @@
     </style>
 </head>
 
-<body>
-
-    <div class="flex justify-center items-center my-10 h-full">
-        <div class=" flex flex-col h-[50vh] justify-center items-center">
-            <div class="userIcon my-3">
-                <!-- Placeholder image with user initials -->
-                <img src="https://ui-avatars.com/api/?name=John+Doe&size=128" alt="User Icon"
-                    class="w-32 h-32 rounded-full border-2 border-gray-300 shadow-md" />
-            </div>
-            <div class="text-center">
-                <p class="email my-5 text-lg font-semibold">
-                    Email: <span class="getEmail">example@email.com</span>
-                </p>
-                <p class="fullName my-5 text-lg font-semibold">
-                    Full Name: <span class="getfullName font-light">John Doe</span>
-                </p>
-                <p class="matno my-5 text-lg font-semibold">
-                    Matriculation Number: <span class="getmatno font-light">ESH223344556677</span>
-                </p>
-                <p class="coin my-5 text-lg font-semibold">
-                    Available Coin Balance: <span class="getcoin font-light">ESH223344556677</span>
-                </p>
-                <p class="dateJoined my-5 text-lg font-semibold">
-                    Date Joined: <span class="getdateJoined font-light">ESH223344556677</span>
-                </p>
+<body class="bg-blue-800">
+    <div class="">
+        <div class="flex justify-center items-center my-10 h-full">
+            <div class=" flex flex-col h-[50vh] justify-center text-[#edd6d6] items-center">
+                <div class="userIcon my-3">
+                    <!-- Placeholder image with user initials -->
+                    <img src="https://ui-avatars.com/api/?name=John+Doe&size=128" alt="User Icon"
+                        class="w-32 h-32 rounded-full  shadow-md" />
+                </div>
+                <div class="text-center">
+                    <p class="email my-5 text-lg font-semibold">
+                        Email: <span class="getEmail">example@email.com</span>
+                    </p>
+                    <p class="fullName my-5 text-lg font-semibold">
+                        Full Name: <span class="getfullName font-light">John Doe</span>
+                    </p>
+                    <p class="matno my-5 text-lg font-semibold">
+                        Matriculation Number: <span class="getmatno font-light">ESH223344556677</span>
+                    </p>
+                    <p class="coin my-5 text-lg font-semibold">
+                        Available Coin Balance: <span class="getcoin font-light">ESH223344556677</span>
+                    </p>
+                    <p class="dateJoined my-5 text-lg font-semibold">
+                        Date Joined: <span class="getdateJoined font-light">ESH223344556677</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Bottom Bar -->
-    <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-4 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
+    <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-3 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
         <a href="/" class="flex items-center flex-col ">
             <i class="fa-solid fa-house text-lg text-blue-400"></i>
             <span class="ml-1 text-sm">Home</span>
         </a>
-        <a href="/search.html" class="flex items-center flex-col ">
-            <i class="fa-solid fa-search text-lg text-blue-400"></i>
-            <span class="ml-1 text-sm">Search</span>
-        </a>
+
         <a href="/settings.html" class="flex items-center flex-col ">
             <i class="fa-solid fa-gear text-lg text-blue-400"></i>
             <span class="ml-1 text-sm">Settings</span>
         </a>
-        <a href="/help.html" class="flex items-center flex-col ">
+        <a href="/about.html" class="flex items-center flex-col ">
             <i class="fa-solid fa-question-circle text-lg text-blue-400"></i>
-            <span class="ml-1 text-sm !text-green-600">Help</span>
+            <span class="ml-1 text-sm">About</span>
         </a>
     </div>
 

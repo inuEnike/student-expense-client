@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Tracker</title>
+    <link href="./dist/styles/output.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/14bfa6f5f3.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        /* Custom scrollbar styles for transaction history table */
+        .transaction-history-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            /* Width of vertical scrollbar */
+            height: 8px;
+            /* Height of horizontal scrollbar */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #888;
+            /* Color of the scroll thumb */
+            border-radius: 4px;
+            /* Rounded corners for the thumb */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+            /* Color of the thumb on hover */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            /* Color of the track */
+            border-radius: 4px;
+            /* Rounded corners for the track */
+        }
+
+        /* For Firefox */
+        .transaction-history-scrollbar {
+            scrollbar-width: thin;
+            /* Thin scroll bars */
+            scrollbar-color: #888 #f1f1f1;
+            /* Thumb color and track color */
+        }
+
+        /* Additional styles */
+        body {
+            padding-bottom: 60px;
+            /* Height of the footer */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="px-3 pb-16">
+        <div class="">
+            <!-- Header with Logo and Icons -->
+            <div class="rounded-b-md flex py-5 justify-between px-2 items-center">
+                <div class="logo flex items-center">
+                    <img class="mx-auto h-10 w-auto pr-2"
+                        src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600" alt="Your Company">
+
+                    <h2 class="text-xl font-bold text-green-800">Finance Tracker</h2>
+                </div>
+                <div class="flex items-center">
+                    <a href="/user.html">
+                        <i class="fa-regular fa-user pr-3"></i>
+                    </a>
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="hello">
+            <h2 class="text-xl text-[#3c4ee0] uppercase text-center font-semibold">About the project</h2>
+            <p class="text-sm my-5 text-pretty">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quasi,
+                laudantium maiores rerum
+                voluptatibus iure libero fugiat, nemo impedit doloribus tempora mollitia nesciunt dolorum voluptatum
+                sint placeat repellat. Aut ab adipisci cupiditate suscipit ullam soluta nihil a animi ipsa odit. Modi,
+                quaerat! Omnis eum excepturi, delectus modi iure inventore est corporis ex sequi voluptates vero illo
+                quod labore non tempore sit facilis totam maiores sunt provident eligendi. Eum voluptate error ea non
+                esse iusto ab maxime doloremque modi incidunt, hic cupiditate iste omnis rerum corrupti expedita ratione
+                consequatur id quaerat sint? Iste maxime consectetur temporibus officia dicta quidem harum laudantium
+                architecto fugiat? Consequuntur animi, hic eveniet quaerat perferendis molestias. Accusantium quod nisi
+                ut, dolorum quibusdam perspiciatis ratione eius iure soluta magnam architecto enim autem cumque sunt
+            </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, suscipit! Rerum ipsam, quisquam
+                incidunt excepturi corporis harum repellendus molestias quidem, aliquid quibusdam molestiae. Magnam
+                placeat officia autem, similique veniam nostrum aperiam vel vitae consectetur assumenda quisquam laborum
+                harum incidunt obcaecati esse impedit nulla accusamus nisi aspernatur sunt voluptatibus, doloremque
+                voluptates? Nostrum deserunt modi vel facere magni suscipit odit alias quisquam.</p>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-3 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
+            <a href="/" class="flex items-center flex-col ">
+                <i class="fa-solid fa-house text-lg text-blue-400"></i>
+                <span class="ml-1 text-sm">Home</span>
+            </a>
+
+            <a href="/settings.html" class="flex items-center flex-col ">
+                <i class="fa-solid fa-gear text-lg text-blue-400"></i>
+                <span class="ml-1 text-sm">Settings</span>
+            </a>
+            <a href="/about.html" class="flex items-center flex-col ">
+                <i class="fa-solid fa-question-circle text-lg text-blue-400"></i>
+                <span class="ml-1 text-sm">About</span>
+            </a>
+        </div>
+        <!-- JavaScript for toggling balance visibility -->
+        <script src="./src/js/main.js"></script>
+</body>
+
+</html>

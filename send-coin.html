@@ -63,8 +63,10 @@
 
                     <h2 class="text-xl font-bold text-green-800">Finance Tracker</h2>
                 </div>
-                <div class="flex">
-                    <i class="fa-regular fa-user pr-3"></i>
+                <div class="flex items-center">
+                    <a href="/user.html">
+                        <i class="fa-regular fa-user pr-3"></i>
+                    </a>
                     <i class="fa-regular fa-bell"></i>
                 </div>
             </div>
@@ -153,22 +155,19 @@
     </div>
 
     <!-- Bottom Bar -->
-    <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-4 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
+    <div class="bottom-bar fixed w-full bottom-0 grid grid-cols-3 bg-slate-200 px-5 py-3 rounded-t-xl gap-4">
         <a href="/" class="flex items-center flex-col ">
             <i class="fa-solid fa-house text-lg text-blue-400"></i>
             <span class="ml-1 text-sm">Home</span>
         </a>
-        <a href="/search.html" class="flex items-center flex-col ">
-            <i class="fa-solid fa-search text-lg text-blue-400"></i>
-            <span class="ml-1 text-sm">Search</span>
-        </a>
+
         <a href="/settings.html" class="flex items-center flex-col ">
             <i class="fa-solid fa-gear text-lg text-blue-400"></i>
             <span class="ml-1 text-sm">Settings</span>
         </a>
-        <a href="/help.html" class="flex items-center flex-col ">
+        <a href="/about.html" class="flex items-center flex-col ">
             <i class="fa-solid fa-question-circle text-lg text-blue-400"></i>
-            <span class="ml-1 text-sm !text-green-600">Help</span>
+            <span class="ml-1 text-sm">About</span>
         </a>
     </div>
 
@@ -179,48 +178,48 @@
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
             let token = localStorage.getItem("auth");
-    
+
             // Fetch user data
             const getUser = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/auth/get-user", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-    
+
             console.log(getUser);
-    
+
             const handleSubmit = async (e) => {
                 e.preventDefault();
-    
+
                 const btn = document.querySelector(".btn");
                 const errorElement = document.querySelector(".error");
-    
+
                 // Start loading state
                 btn.innerHTML = "Loading...";
-    
+
                 // Get input values
                 const amountInput = document.querySelector(".amount");
-                const pinInput = document.querySelector(".pin").value; 
+                const pinInput = document.querySelector(".pin").value;
                 const recipient = document.querySelector(".matno").value;
                 const description = document.querySelector(".description").value;
-    
+
                 // Convert input values
                 const amount = parseFloat(amountInput.value); // Convert to number
                 const pin = parseInt(pinInput, 10); // Convert pin to number
-                console.log('Pin:', pin, 'Type:', typeof(pin));
-    
+                console.log('Pin:', pin, 'Type:', typeof (pin));
+
                 if (isNaN(amount) || amount <= 0) { // Ensure amount is a positive number
                     alert("Please enter a valid amount");
                     btn.innerHTML = "Buy";
                     return;
                 }
-    
+
                 if (isNaN(pin)) { // Ensure pin is a number
                     alert("Please enter a valid pin");
                     btn.innerHTML = "Buy";
                     return;
                 }
-    
+
                 try {
                     // Send the request to buy coin
                     const response = await axios.post('https://student-expense-tracker-lewk.onrender.com/api/v1/transaction/send-coin', {
@@ -234,9 +233,9 @@
                             Authorization: `Bearer ${token}`
                         }
                     });
-    
-                   window.location.href = '/index.html'
-    
+
+                    window.location.href = '/index.html'
+
                 } catch (error) {
                     console.error("Error:", error.response ? error.response.data : error);
                     errorElement.innerHTML = error.response?.data?.errormessage || "An error occurred";
@@ -248,7 +247,7 @@
                     btn.innerHTML = "Proceed";
                 }
             };
-    
+
             const form = document.querySelector('.form');
             form.addEventListener("submit", handleSubmit);
         });

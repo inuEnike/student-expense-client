@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const protectedRoutes = ["/", "/index.html", "/dashboard.html", "/send-coin.html", "/settings.html", "/buy-coin.html"];
+  const protectedRoutes = ["/", "/index.html", "/dashboard.html", "/send-coin.html", "/search.html", "/about.html", "transaction-history.html", "/settings.html", "/buy-coin.html"];
 
   const isAuthenticated = () => {
     return !!localStorage.getItem("auth"); // Return true if 'auth' exists, false otherwise
@@ -17,6 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   userNotAuthenticated();
+
+
+const invalidRoute = () => {
+  const currentPath = window.location.pathname;
+
+  // Check if the current path is in the list of protected routes
+  const isProtectedRoute = protectedRoutes.includes(currentPath);
+
+  if (!isProtectedRoute) {
+    window.location.href = "/login.html"; // Redirect to login page if not a protected route
+  }
+};
+
+// Call the invalidRoute function on page load
+invalidRoute();
+
 });
 
 const logout = () => {
@@ -25,9 +41,10 @@ const logout = () => {
     let removeToken;
     removeToken = token
     window.location.href = "/login.html";
-  }else{
+  } else {
     return null
   }
 
   return removeToken
 }
+
