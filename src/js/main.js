@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const protectedRoutes = ["/", "/index.html", "/dashboard.html", "/send-coin.html", "/search.html", "/about.html", "transaction-history.html", "/settings.html", "/buy-coin.html"];
+  const protectedRoutes = ["/", "/index.html", "/dashboard.html", "/send-coin.html", "/search.html", "/about.html", "user.html", "transaction-history.html", "/settings.html", "/buy-coin.html"];
 
   const isAuthenticated = () => {
     return !!localStorage.getItem("auth"); // Return true if 'auth' exists, false otherwise
