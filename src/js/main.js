@@ -18,21 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   userNotAuthenticated();
 
-
-const invalidRoute = () => {
-  const currentPath = window.location.pathname;
-
-  // Check if the current path is in the list of protected routes
-  const isProtectedRoute = protectedRoutes.includes(currentPath);
-
-  if (!isProtectedRoute) {
-    window.location.href = "/login.html"; // Redirect to login page if not a protected route
-  }
-};
-
-// Call the invalidRoute function on page load
-invalidRoute();
-
 });
 
 const logout = () => {
