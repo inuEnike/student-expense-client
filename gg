@@ -1,18 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Finance Tracker</title>
     <link href="./dist/styles/output.css" rel="stylesheet" />
-    <script
-      src="https://kit.fontawesome.com/14bfa6f5f3.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/14bfa6f5f3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  </head>
+    <style>
+        /* Custom scrollbar styles for transaction history table */
+        .transaction-history-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            /* Width of vertical scrollbar */
+            height: 8px;
+            /* Height of horizontal scrollbar */
+        }
 
- <body class="relative">
+        .transaction-history-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #888;
+            /* Color of the scroll thumb */
+            border-radius: 4px;
+            /* Rounded corners for the thumb */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+            /* Color of the thumb on hover */
+        }
+
+        .transaction-history-scrollbar::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            /* Color of the track */
+            border-radius: 4px;
+            /* Rounded corners for the track */
+        }
+
+        /* For Firefox */
+        .transaction-history-scrollbar {
+            scrollbar-width: thin;
+            /* Thin scroll bars */
+            scrollbar-color: #888 #f1f1f1;
+            /* Thumb color and track color */
+        }
+
+        /* Additional styles */
+        body {
+            padding-bottom: 60px;
+            /* Height of the footer */
+        }
+    </style>
+</head>
+
+<body class="relative">
     <div class="px-3 pb-16">
         <div class="">
             <!-- Header with Logo and Icons -->
@@ -142,11 +182,8 @@
     <!-- JavaScript for toggling balance visibility -->
     <script src="./src/js/main.js"></script>
     <script>
-        console.log("start")
         document.addEventListener("DOMContentLoaded", async () => {
-
-        let token = localStorage.getItem("auth");
-        console.log(token)
+            let token = localStorage.getItem("auth");
 
             // Fetch user data
             const getUser = await axios.get("https://student-expense-tracker-lewk.onrender.com/api/v1/auth/get-user", {
@@ -235,4 +272,5 @@
     </script>
 
 </body>
+
 </html>
